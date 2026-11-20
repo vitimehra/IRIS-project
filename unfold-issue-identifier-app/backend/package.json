@@ -1,0 +1,25 @@
+{
+  "name": "unfold-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "UNFOLD research instrument - API, SQLite persistence and export",
+  "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "migrate": "node src/db/migrate.js",
+    "seed:admins": "node src/scripts/seedAdmins.js",
+    "test": "node --test \"tests/**/*.test.js\""
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1"
+  }
+}

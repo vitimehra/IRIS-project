@@ -1,0 +1,21 @@
+node_modules/
+dist/
+build/
+
+# Never commit a real environment file. .env.example is the template.
+.env
+.env.*
+!.env.example
+
+# The local SQLite database and its write-ahead log.
+database/*.sqlite
+database/*.sqlite-wal
+database/*.sqlite-shm
+
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.vercel

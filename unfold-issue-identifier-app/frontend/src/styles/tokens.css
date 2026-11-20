@@ -1,0 +1,108 @@
+/*
+ * UNFOLD design tokens.
+ *
+ * Marigold on indigo, on limewash paper. Chosen against the cream-and-terracotta
+ * and black-and-acid-green defaults that most study instruments land on, and
+ * warm enough that a 45-year-old does not feel handed a teenager's app.
+ */
+
+:root {
+  /* Ground */
+  --paper: #efefe7;
+  --paper-raised: #f7f7f2;
+  --paper-sunk: #e4e4da;
+
+  /* Ink */
+  --indigo: #141b33;
+  --indigo-soft: #2b3350;
+  --ink: var(--indigo);
+  --ink-muted: #575d75;
+  --ink-faint: #878ca0;
+
+  /* Accents */
+  --marigold: #e2a02a;
+  --marigold-deep: #c2851a;
+  --marigold-wash: #f7e5c0;
+  --teal: #2c6b63;
+  --teal-wash: #d6e5e2;
+  --clay: #b1492f;
+  --clay-wash: #f3ddd6;
+
+  /* The day, dawn to night. Also the progress rail. */
+  --hour-dawn: #f2c879;
+  --hour-morning: #e2a02a;
+  --hour-midday: #d98f2c;
+  --hour-afternoon: #a97a4a;
+  --hour-evening: #5c5a7a;
+  --hour-night: #232a49;
+
+  --line: #d3d3c7;
+  --line-strong: #b8b8a9;
+
+  --radius-sm: 6px;
+  --radius: 12px;
+  --radius-lg: 20px;
+
+  --shadow-sm: 0 1px 2px rgba(20, 27, 51, 0.06);
+  --shadow: 0 2px 8px rgba(20, 27, 51, 0.08);
+  --shadow-lg: 0 12px 32px rgba(20, 27, 51, 0.14);
+
+  --font-display: 'Bricolage Grotesque', 'IBM Plex Sans', system-ui, sans-serif;
+  /* IBM Plex has a Devanagari companion, so a later Hindi translation is a font
+     swap rather than a redesign. */
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --step--1: clamp(0.82rem, 0.79rem + 0.14vw, 0.89rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.09rem);
+  --step-1: clamp(1.2rem, 1.12rem + 0.4vw, 1.4rem);
+  --step-2: clamp(1.45rem, 1.3rem + 0.75vw, 1.85rem);
+  --step-3: clamp(1.8rem, 1.5rem + 1.4vw, 2.6rem);
+  --step-4: clamp(2.2rem, 1.7rem + 2.4vw, 3.6rem);
+
+  --gap-xs: 0.35rem;
+  --gap-sm: 0.7rem;
+  --gap: 1.1rem;
+  --gap-lg: 1.9rem;
+  --gap-xl: 3rem;
+
+  --measure: 34rem;
+  --page-max: 68rem;
+
+  --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--marigold-deep);
+}
+
+/*
+ * Dark mode is deliberately a lighting change, not a different design: the same
+ * marigold accent, the same day strip, on an indigo ground. Anyone reading a
+ * consent form at night should see the same document.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #12172a;
+    --paper-raised: #1a2039;
+    --paper-sunk: #0d1121;
+
+    --indigo: #eceaf3;
+    --indigo-soft: #cdd0e0;
+    --ink: #eceaf3;
+    --ink-muted: #a4a9c0;
+    --ink-faint: #757b96;
+
+    --marigold: #eab446;
+    --marigold-deep: #f0c467;
+    --marigold-wash: #3b2f16;
+    --teal: #6cbdb0;
+    --teal-wash: #17332f;
+    --clay: #e08267;
+    --clay-wash: #3a2019;
+
+    --line: #2c3352;
+    --line-strong: #3f4870;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.55);
+
+    --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--marigold);
+  }
+}

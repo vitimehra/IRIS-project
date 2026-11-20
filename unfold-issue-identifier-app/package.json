@@ -1,0 +1,18 @@
+{
+  "name": "unfold-issue-identifier-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "UNFOLD - Uncovering Needs and Frictions in Ordinary Lived Days. A research instrument for automatic identification of everyday user issues.",
+  "scripts": {
+    "install:all": "npm --prefix backend install && npm --prefix frontend install",
+    "migrate": "npm --prefix backend run migrate",
+    "seed:admins": "npm --prefix backend run seed:admins",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "test": "npm --prefix backend test && npm --prefix frontend test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

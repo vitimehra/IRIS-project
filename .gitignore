@@ -1,0 +1,14 @@
+.env
+.venv/
+node_modules/
+__pycache__/
+.pytest_cache/
+dist/
+*.sqlite
+*.sqlite3
+*.db
+*.duckdb
+*.npz
+*.npy
+faiss.index
+.DS_Store

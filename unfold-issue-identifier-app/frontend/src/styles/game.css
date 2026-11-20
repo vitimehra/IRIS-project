@@ -1,0 +1,478 @@
+/*
+ * Game, rating and debrief surfaces.
+ *
+ * Everything here is thumb-first: 48px minimum targets, single column under
+ * 640px, and no interaction that needs a hover state to be discoverable.
+ */
+
+/* --- day board ---------------------------------------------------------- */
+
+.band {
+  border-left: 3px solid var(--line-strong);
+  padding-left: var(--gap);
+  margin-bottom: var(--gap-lg);
+}
+
+.band:nth-of-type(1) { border-left-color: var(--hour-dawn); }
+.band:nth-of-type(2) { border-left-color: var(--hour-morning); }
+.band:nth-of-type(3) { border-left-color: var(--hour-midday); }
+.band:nth-of-type(4) { border-left-color: var(--hour-afternoon); }
+.band:nth-of-type(5) { border-left-color: var(--hour-evening); }
+.band:nth-of-type(6) { border-left-color: var(--hour-night); }
+
+.band__header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--gap-sm);
+}
+
+.band__title {
+  font-size: var(--step-1);
+  margin: 0;
+}
+
+.band__window {
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+}
+
+.band__episodes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.episode-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-sm);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--gap-sm) var(--gap);
+  min-height: 48px;
+}
+
+.episode-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.episode-card__label {
+  font-weight: 600;
+}
+
+.episode-card__desc {
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+}
+
+.episode-card__remove {
+  font: inherit;
+  font-size: var(--step-2);
+  line-height: 1;
+  background: transparent;
+  border: 0;
+  color: var(--ink-faint);
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.episode-card__remove:hover {
+  color: var(--clay);
+  background: var(--clay-wash);
+}
+
+.episode-add {
+  font: inherit;
+  text-align: left;
+  background: transparent;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink-muted);
+  padding: var(--gap-sm) var(--gap);
+  cursor: pointer;
+  min-height: 48px;
+}
+
+.episode-add:hover {
+  border-color: var(--marigold-deep);
+  color: var(--ink);
+}
+
+/* --- emotion tokens ----------------------------------------------------- */
+
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--gap-xs);
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.token {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: var(--gap-sm) var(--gap);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  cursor: pointer;
+  min-height: 56px;
+  position: relative;
+}
+
+.token input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.token__label {
+  font-weight: 600;
+}
+
+.token__hint {
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+}
+
+.token--on {
+  border-color: var(--clay);
+  background: var(--clay-wash);
+}
+
+.token--positive.token--on {
+  border-color: var(--teal);
+  background: var(--teal-wash);
+}
+
+.token:has(input:focus-visible) {
+  box-shadow: var(--focus);
+}
+
+/* --- forced choice ------------------------------------------------------ */
+
+.pair-grid {
+  display: grid;
+  gap: var(--gap-sm);
+  align-items: stretch;
+}
+
+@media (min-width: 40rem) {
+  .pair-grid {
+    grid-template-columns: 1fr auto 1fr;
+  }
+}
+
+.pair-option {
+  font: inherit;
+  font-size: var(--step-1);
+  font-weight: 600;
+  text-align: center;
+  background: var(--paper-raised);
+  border: 2px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: var(--gap-lg) var(--gap);
+  cursor: pointer;
+  min-height: 7rem;
+  color: var(--ink);
+  transition: border-color 0.15s ease, transform 0.08s ease;
+}
+
+.pair-option:hover:not(:disabled) {
+  border-color: var(--marigold);
+  background: var(--marigold-wash);
+}
+
+.pair-option:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.pair-or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-faint);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* --- extraction --------------------------------------------------------- */
+
+.extracting-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--hour-dawn),
+    var(--hour-morning),
+    var(--hour-midday),
+    var(--hour-evening),
+    var(--hour-night),
+    var(--hour-dawn)
+  );
+  background-size: 300% 100%;
+  animation: unfold-shimmer 2.4s linear infinite;
+}
+
+@keyframes unfold-shimmer {
+  from { background-position: 0% 0; }
+  to { background-position: 300% 0; }
+}
+
+/* --- CAE card ----------------------------------------------------------- */
+
+.cae-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--marigold);
+  border-radius: var(--radius);
+  padding: var(--gap) var(--gap-lg);
+}
+
+.cae-row + .cae-row {
+  margin-top: var(--gap-sm);
+  padding-top: var(--gap-sm);
+  border-top: 1px solid var(--line);
+}
+
+.cae-slot {
+  display: block;
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--ink-faint);
+  margin-bottom: 0.1rem;
+}
+
+.cae-text {
+  margin: 0;
+  max-width: none;
+}
+
+/* --- severity ----------------------------------------------------------- */
+
+.severity-scale {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+  gap: var(--gap-xs);
+}
+
+.severity {
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: var(--gap-sm) var(--gap-xs);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  cursor: pointer;
+  min-height: 72px;
+  color: var(--ink);
+}
+
+.severity:hover:not(:disabled) {
+  border-color: var(--marigold-deep);
+  background: var(--marigold-wash);
+}
+
+.severity--on {
+  border-color: var(--marigold-deep);
+  background: var(--marigold);
+  color: #241a05;
+}
+
+.severity__value {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.severity__label {
+  font-size: var(--step--1);
+  text-align: center;
+  line-height: 1.25;
+}
+
+/* --- questionnaire ------------------------------------------------------ */
+
+.scale-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  gap: var(--gap-xs);
+}
+
+.scale-point {
+  font: inherit;
+  font-size: var(--step--1);
+  padding: var(--gap-sm) var(--gap-xs);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  min-height: 48px;
+}
+
+.scale-point--on {
+  border-color: var(--teal);
+  background: var(--teal-wash);
+  font-weight: 600;
+}
+
+.card--flagged {
+  border-color: var(--clay);
+}
+
+/* --- debrief ------------------------------------------------------------ */
+
+.debrief-day {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.debrief-band {
+  display: flex;
+  gap: var(--gap);
+  align-items: stretch;
+}
+
+.debrief-band__label {
+  width: 6px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* --- admin analysis ----------------------------------------------------- */
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: var(--gap);
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 12rem) 1fr auto;
+  gap: var(--gap-sm);
+  align-items: center;
+  font-size: var(--step--1);
+  padding: 0.2rem 0;
+}
+
+.bar-track {
+  background: var(--paper-sunk);
+  border-radius: 999px;
+  height: 0.6rem;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--marigold);
+  border-radius: 999px;
+}
+
+.bar-fill--teal {
+  background: var(--teal);
+}
+
+/* --- accessibility and mobile pass -------------------------------------- */
+
+/*
+ * Windows high-contrast mode strips background colours, which would make every
+ * "selected" state here invisible, since selection is signalled by fill. These
+ * restore it with a property that forced-colors keeps.
+ */
+@media (forced-colors: active) {
+  .token--on,
+  .severity--on,
+  .scale-point--on,
+  .choice--checked {
+    outline: 3px solid CanvasText;
+    outline-offset: -3px;
+  }
+
+  .bar-fill,
+  .day-strip__seg {
+    forced-color-adjust: none;
+    background: Highlight;
+  }
+}
+
+/* Below 480px the severity scale becomes unusable as a five-across grid: the
+   labels wrap to three lines and the targets fall under 44px. */
+@media (max-width: 30rem) {
+  .severity-scale {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .severity {
+    padding: var(--gap-sm) 0.15rem;
+    min-height: 84px;
+  }
+
+  .severity__label {
+    font-size: 0.68rem;
+    hyphens: auto;
+  }
+
+  .token-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bar-row {
+    grid-template-columns: minmax(6rem, 1fr) 1fr auto;
+  }
+
+  .pair-option {
+    min-height: 5.5rem;
+    font-size: var(--step-0);
+  }
+}
+
+/* The dashboard tables are the one place wide content is unavoidable. They
+   scroll inside their own container so the page body never does. */
+.table-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Selected state must not rely on colour alone: a check mark carries it too. */
+.token--on .token__label::after {
+  content: ' ✓';
+  font-weight: 700;
+}
+
+.scale-point--on::after,
+.choice--checked .choice__text::after {
+  content: ' ✓';
+  font-weight: 700;
+}
+
+/* Keyboard users get the same affordance as pointer users on the pair cards. */
+.pair-option:focus-visible {
+  border-color: var(--marigold-deep);
+  background: var(--marigold-wash);
+}
+
+/* iOS zooms the page when a focused input is under 16px. */
+@media (max-width: 48rem) {
+  .input,
+  .select,
+  .textarea {
+    font-size: max(16px, 1rem);
+  }
+}

@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+dist/
+.env
+!.env.example
+backend/data/*
+!backend/data/.gitkeep
+*.log
+.DS_Store
+# participant images from older configs; never commit study data
+data/

@@ -1,0 +1,9 @@
+# Railway Nixpacks. Node 24 has no better-sqlite3 prebuild, so the
+# install falls through to node-gyp and dies without Python.
+# Pin Node 20 (prebuilds exist) and keep a compiler toolchain as fallback.
+
+[variables]
+NIXPACKS_NODE_VERSION = "20"
+
+[phases.setup]
+nixPkgs = ["...", "python312", "gcc"]
