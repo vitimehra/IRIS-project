@@ -1,0 +1,120 @@
+{
+  "pipeline_version": "1.0.0",
+  "config": {
+    "data_dir": "D:\\Code\\CreatED\\CreatED Viti Mehra - Illusion of Novelty\\inspider-web-KG-app\\data",
+    "provider": "openai",
+    "embedding_model": "text-embedding-3-large",
+    "embedding_dimensions": 3072,
+    "local_model": "all-MiniLM-L6-v2",
+    "chat_model": "gpt-4o-mini",
+    "batch_size": 1024,
+    "concurrency": 8,
+    "gpt_gloss_missing": false,
+    "gpt_name_clusters": false,
+    "knn_k": 50,
+    "cluster_resolution": 1.0,
+    "limit": 0
+  },
+  "stages": {
+    "01_collect": {
+      "completed_at": "2026-09-13T07:43:23.226774+00:00",
+      "python": "3.14.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "verbs": 23268,
+      "unverified": 12715,
+      "source_counts": {
+        "hossein1376": 21835,
+        "monolithpl": 9752,
+        "stanford_verbnet": 3257,
+        "dariusk_corpora": 736,
+        "legend80s": 4255,
+        "verbnet33": 6790,
+        "wordnet": 11527
+      },
+      "sources": {
+        "hossein1376": "https://raw.githubusercontent.com/hossein1376/all-english-verbs/HEAD/Verbs.xlsx",
+        "monolithpl": "https://raw.githubusercontent.com/monolithpl/verb.forms.dictionary/HEAD/csv/verbs-all.csv",
+        "stanford_verbnet": "https://nlp.stanford.edu/projects/infer/data/resources/Verbnet/data/verbs.txt",
+        "dariusk_corpora": "https://raw.githubusercontent.com/dariusk/corpora/master/data/words/verbs.json",
+        "legend80s": "https://raw.githubusercontent.com/legend80s/verb-corpus/HEAD/generated/complete.json",
+        "verbnet33": "http://verbs.colorado.edu/verb-index/vn/verbnet-3.3.tar.gz",
+        "wordnet": "nltk corpus"
+      },
+      "limit": 0
+    },
+    "02_gloss": {
+      "completed_at": "2026-09-13T07:43:54.840594+00:00",
+      "python": "3.14.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "verbs": 23268,
+      "wordnet_glossed": 8696,
+      "gpt_glossed": 0,
+      "no_gloss": 14572,
+      "max_synsets_per_gloss": 2
+    },
+    "03_embed": {
+      "completed_at": "2026-09-13T09:57:03.746979+00:00",
+      "python": "3.14.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "provider": "openai",
+      "model": "text-embedding-3-large",
+      "dimensions": 3072,
+      "vectors": 23268,
+      "seconds": 137.1,
+      "usage": {
+        "prompt_tokens": 207088,
+        "requests": 23,
+        "retries": 0,
+        "resumed_batches": 0
+      },
+      "cost": {
+        "prompt_tokens": 207088,
+        "indicative_usd": 0.0269,
+        "price_assumed_per_1M_tokens": 0.13
+      },
+      "stored_dtype": "float16",
+      "normalised": true
+    },
+    "04_knn": {
+      "completed_at": "2026-09-13T09:57:13.968805+00:00",
+      "python": "3.14.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "k": 50,
+      "edges": 1163400,
+      "seconds": 9.5,
+      "method": "faiss IndexFlatIP exact, unit vectors (= cosine)",
+      "sim_convention": "cosine similarity, 1 = identical",
+      "sim_stats": {
+        "mean": 0.549324631690979,
+        "p10": 0.4611997753381729,
+        "p50": 0.5455626547336578,
+        "p90": 0.636221170425415,
+        "rank1_mean": 0.7493516206741333
+      }
+    },
+    "05_layout": {
+      "completed_at": "2026-09-13T09:57:53.252918+00:00",
+      "python": "3.14.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "nodes": 23268,
+      "clusters": 17,
+      "largest_cluster": 2808,
+      "resolution": 1.0,
+      "layout": "PCA(100) -> UMAP(2, cosine)",
+      "clustering": "Leiden RBConfiguration on kNN graph, weights = cosine sim",
+      "gpt_named": false,
+      "seconds": 37.6
+    },
+    "06_index": {
+      "completed_at": "2026-09-13T09:57:54.728462+00:00",
+      "python": "3.14.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "tables": {
+        "nodes": 23268,
+        "edges": 1163400,
+        "clusters": 17
+      },
+      "path": "D:\\Code\\CreatED\\CreatED Viti Mehra - Illusion of Novelty\\inspider-web-KG-app\\data\\inspider.duckdb"
+    }
+  }
+}
